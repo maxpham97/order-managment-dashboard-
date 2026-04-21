@@ -1,8 +1,8 @@
 import { lazy, Suspense } from "react";
-import { Route, Routes } from "react-router-dom";
+import { Navigate, Route, Routes } from "react-router-dom";
 import { ROUTERS_PATHS } from "../constants/router-paths";
 
-const DashboardPage = lazy(() => import("../pages/dashboard"));
+const OrderPage = lazy(() => import("../pages/order"));
 
 interface IRoutesState {
     path: string;
@@ -13,6 +13,7 @@ export const RenderRoutes = () => {
     return (
         <Suspense fallback={"loading..."}>
             <Routes>
+                <Route path="/" element={<Navigate to={ROUTERS_PATHS.ORDER} replace />} />
                 {routes.map((route: IRoutesState, index: number) => {
                     const Component = route.component;
                     return (
@@ -30,4 +31,4 @@ export const RenderRoutes = () => {
     );
 };
 
-const routes: IRoutesState[] = [{ component: DashboardPage, path: ROUTERS_PATHS.DASHBOARD }];
+const routes: IRoutesState[] = [{ component: OrderPage, path: ROUTERS_PATHS.ORDER }];
